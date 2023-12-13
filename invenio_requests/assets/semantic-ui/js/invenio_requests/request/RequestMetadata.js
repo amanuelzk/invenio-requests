@@ -77,7 +77,7 @@ class RequestMetadata extends Component {
         <>
           {expandedCreatedBy !== undefined && (
             <>
-              <Header as="h3" size="tiny">
+              {/* <Header as="h3" size="tiny">
                 {i18next.t("Creator")}
               </Header>
               {this.isResourceDeleted(expandedCreatedBy) ? (
@@ -87,7 +87,7 @@ class RequestMetadata extends Component {
                   userData={request.created_by}
                   details={request.expanded?.created_by}
                 />
-              )}
+              )} */}
               <Divider />
             </>
           )}
