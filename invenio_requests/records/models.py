@@ -7,6 +7,7 @@
 
 """Base classes for requests in Invenio."""
 
+import json
 import uuid
 
 from invenio_db import db
@@ -15,9 +16,11 @@ from sqlalchemy import func
 from sqlalchemy.dialects import mysql
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.sql.expression import text
+from sqlalchemy.sql.sqltypes import JSON
 from sqlalchemy.types import String
 from sqlalchemy_utils import UUIDType
-
+from sqlalchemy.dialects.postgresql import JSONB
 
 class RequestMetadata(db.Model, RecordMetadataBase):
     """Base class for requests of any kind in Invenio."""
@@ -33,6 +36,9 @@ class RequestMetadata(db.Model, RecordMetadataBase):
         default=None,
         nullable=True,
     )
+    ownerrequest_status = db.Column(JSONB, nullable=True, server_default=text("'[]'::jsonb"))
+
+
 
 
 class RequestEventModel(db.Model, RecordMetadataBase):
