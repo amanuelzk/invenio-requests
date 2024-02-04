@@ -4,14 +4,15 @@ import { RequestActions } from "@js/invenio_requests/request/actions/RequestActi
 import PropTypes from "prop-types";
 import { RequestActionContext } from "./context";
 import React, { Component } from "react";
-
+import {Request} from "../../components/Buttons"
+import {http} from "react-invenio-forms"
 export class RequestActionController extends Component {
   constructor(props) {
     super(props);
     const { request, requestApi } = props;
     this.linkExtractor = new RequestLinksExtractor(request);
     this.requestApi = requestApi || new InvenioRequestsAPI(this.linkExtractor);
-    this.state = { modalOpen: {}, loading: false, error: undefined };
+    this.state = { modalOpen: {}, loading: false, error: undefined,request_status:{},ownerId:{}};
   }
 
   toggleActionModal = (actionId, val) => {
@@ -41,12 +42,17 @@ export class RequestActionController extends Component {
   cleanError = () => {
     this.setState({ error: undefined });
   };
+   
 
   render() {
-    const { modalOpen, error, loading } = this.state;
+    
+    const { modalOpen, error,request_status,ownerId, loading } = this.state;
     const { request, children, size } = this.props;
+    
 
+    
     return (
+
       <RequestActionContext.Provider
         value={{
           modalOpen: modalOpen,
@@ -59,6 +65,7 @@ export class RequestActionController extends Component {
           loading: loading,
         }}
       >
+        <Request request={request}/>
         <RequestActions request={request} size={size} />
         {children}
       </RequestActionContext.Provider>
